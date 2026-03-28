@@ -44,13 +44,7 @@ python compare_formal.py --method interleaved
 
 ## Configuration
 
-Edit the top of each script:
-
-```python
-LMSTUDIO_BASE_URL = "http://127.0.0.1:1234/v1"
-MODEL_ID = "granite-4.0-micro@q8_0"
-SEED = 42
-```
+`LMSTUDIO_BASE_URL` is read from the `LM_STUDIO_BASE_URL` env variable (default: `http://127.0.0.1:1234/v1`). `MODEL_ID` and `SEED` can be edited at the top of each script.
 
 ## Some results for NO requirements
 
