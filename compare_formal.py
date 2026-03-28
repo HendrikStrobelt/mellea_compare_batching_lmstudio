@@ -1,16 +1,17 @@
 import argparse
 import asyncio
+import os
 import time
 
 from mellea import MelleaSession
 from mellea.backends.model_options import ModelOption
 from mellea.backends.openai import OpenAIBackend
-from mellea.core import FancyLogger
+from mellea.core import FancyLogger, Requirement
+from mellea.stdlib.requirements import req, simple_validate
 
 LMSTUDIO_BASE_URL = os.environ.get("LM_STUDIO_BASE_URL", "http://127.0.0.1:1234/v1")
-# MODEL_ID = "gpt-oss-20b"
-MODEL_ID="granite-4.0-micro@q8_0"
-
+MODEL_ID = "gpt-oss-20b"
+# MODEL_ID = "granite-4.0-micro@q8_0"
 
 SEED = 42
 
@@ -67,9 +68,12 @@ PROMPTS = [
     "What is the hardest natural substance on Earth?",
 ]
 
-REQUIREMENTS = ["Use formal language."]
+ten_word_req = Requirement("maximum 10 words.",
+                           validation_fn=simple_validate(lambda x: len(x.split("/s+")) < 10, reason="too many words"))
+REQUIREMENTS = ["Use formal language.", ten_word_req]
 
 FancyLogger.get_logger().setLevel(FancyLogger.WARNING)
+
 
 def make_backend() -> OpenAIBackend:
     return OpenAIBackend(
