@@ -11,7 +11,7 @@ dependencies = [
 ]
 
 [package.metadata]
-requires-dist = [{ name = "mellea" }]
+requires-dist = [{ name = "mellea", specifier = "==0.4.1" }]
 
 [[package]]
 name = "absl-py"
